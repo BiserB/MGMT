@@ -21,7 +21,7 @@ namespace MGMT.Core.Services
             this.jobRepository = jobRepository;
         }
 
-        public async Task<Job> AddComment(int jobId, string content, int commentTypeId, DateTime reminderDate, string commenterId)
+        public async Task<Job> AddComment(int jobId, string content, int commentTypeId, DateTime reminderDate, int commenterId)
         {
             var job = await FindJob(jobId);
 
@@ -32,7 +32,7 @@ namespace MGMT.Core.Services
             return job;
         }
 
-        public async Task<Job> CreateJobAsync(string name, string description, int jobTypeId, string creatorId, DateTime requiredByDate)
+        public async Task<Job> CreateJobAsync(string name, string description, int jobTypeId, int creatorId, DateTime requiredByDate)
         {
             var job = new Job(name, description, jobTypeId, creatorId, requiredByDate);
 

@@ -1,6 +1,8 @@
-﻿using MGMT.Core.Interfaces;
+﻿using MGMT.Core.Entities.JobAggregate;
+using MGMT.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +13,7 @@ namespace MGMT.Core.Entities.WorkerAggregate
     {
         public string IdentityGuid { get; private set; }
 
-        #pragma warning disable CS8618 // Required by Entity Framework
+#pragma warning disable CS8618 // Required by Entity Framework
         private Worker()
         { }
 

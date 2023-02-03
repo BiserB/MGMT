@@ -13,7 +13,7 @@ namespace MGMT.Core.Entities.JobAggregate
     {
         private readonly List<Comment> comments = new List<Comment>();
 
-        public Job(string name, string description, int jobTypeId, string creatorId, DateTime requiredByDate)
+        public Job(string name, string description, int jobTypeId, int creatorId, DateTime requiredByDate)
         {
             Name = name;
             Description = description;
@@ -37,7 +37,9 @@ namespace MGMT.Core.Entities.JobAggregate
 
         public DateTime CreatedOn { get; private set; }
 
-        public string CreatorId { get; private set; }
+        public int CreatorId { get; private set; }
+
+        public Worker Creator { get; private set; }
 
         public DateTime RequiredByDate { get; private set; }
 
@@ -68,9 +70,9 @@ namespace MGMT.Core.Entities.JobAggregate
             RequiredByDate = requiredByDate;
         }
 
-        public void AddComment(string content, int commentTypeId, DateTime reminderDate, string commenterId)
+        public void AddComment(string content, int commentTypeId, DateTime reminderDate, int commenterId)
         {
-            if (String.IsNullOrWhiteSpace(content) || String.IsNullOrWhiteSpace(commenterId))
+            if (String.IsNullOrWhiteSpace(content))
             {
                 return;
             }
@@ -78,13 +80,8 @@ namespace MGMT.Core.Entities.JobAggregate
             comments.Add(new Comment(Id, commentTypeId, content, reminderDate, commenterId));
         }
 
-        public void DeleteComment(int commentId, string workerId)
+        public void DeleteComment(int commentId, int workerId)
         {
-            if (String.IsNullOrWhiteSpace(workerId))
-            {
-                return;
-            }
-
             var commentToRemove = comments.Where(c => c.Id == commentId && c.CommenterId == workerId).FirstOrDefault();
 
             if (commentToRemove == null)

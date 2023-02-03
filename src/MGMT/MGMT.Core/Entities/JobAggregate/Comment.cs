@@ -9,7 +9,7 @@ namespace MGMT.Core.Entities.JobAggregate
 {
     public class Comment : BaseEntity
     {
-        public Comment(int jobId, int commentTypeId, string content, DateTime reminderDate, string commenterId)
+        public Comment(int jobId, int commentTypeId, string content, DateTime reminderDate, int commenterId)
         {
             JobId = jobId;
             CommentTypeId = commentTypeId;
@@ -21,6 +21,8 @@ namespace MGMT.Core.Entities.JobAggregate
 
         public int JobId { get; private set; }
 
+        public Job Job { get; private set; }
+
         public int CommentTypeId { get; private set; }
 
         public CommentType CommentType { get; private set; }
@@ -29,7 +31,7 @@ namespace MGMT.Core.Entities.JobAggregate
 
         public DateTime ReminderDate { get; private set; }
 
-        public string CommenterId { get; private set; }
+        public int CommenterId { get; private set; }
 
         public Worker Commenter { get; private set; }
 

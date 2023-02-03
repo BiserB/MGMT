@@ -1,6 +1,10 @@
+using MGMT.Infrastructure.Data;
+using MGMT.Infrastructure.Identity;
 using MGMT.Web.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace MGMT.Web
 {
@@ -9,6 +13,12 @@ namespace MGMT.Web
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<JobDbContext>(c =>
+                c.UseSqlServer(builder.Configuration.GetConnectionString("JobDbConnection"), x => x.MigrationsAssembly("MGMT.Infrastructure")));
+
+            // Add Identity DbContext
+            builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
 
             // Add services to the container.
             builder.Services.AddRazorPages();
